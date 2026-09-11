@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSTAP | Turnazioni</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="./"><span class="brand-mark">O</span><span class="brand-copy"><strong>OSTAP</strong><small>Operative Stocastic Tool for Allocation of Personal</small></span></a>
+      <div class="topbar-meta"><span class="status-dot"></span><span id="save-status">Bozza locale</span><button class="icon-button" id="reset-button" title="Azzera dati">↺</button></div>
+    </header>
+    <main>
+      <section class="hero"><div><p class="eyebrow">TURNazioni / PIANO OPERATIVO</p><h1>Genera la<br><em>turnazione.</em></h1></div></section>
+      <section class="workspace-grid">
+        <aside class="control-panel">
+          <div class="panel-heading"><span class="step">01</span><div><h2>Dati di partenza</h2><p>Carica il roster del personale.</p></div></div>
+          <label class="upload-zone" id="upload-zone" for="file-input"><span class="upload-icon">↑</span><strong id="upload-title">Carica il file Excel</strong><span id="upload-subtitle">.xlsx, .xls o .csv</span><input id="file-input" type="file" accept=".xlsx,.xls,.csv"></label>
+          <button class="text-button" id="demo-button">Usa roster di esempio <span>→</span></button>
+          <div class="panel-heading second"><span class="step">02</span><div><h2>Parametri</h2><p>Configura il periodo.</p></div></div>
+          <div class="field-grid period-grid"><label class="field"><span>Da</span><input id="start-date" type="date"></label><label class="field"><span>A</span><input id="end-date" type="date"></label><label class="field field-wide"><span>Inizio settimana</span><select id="week-start"><option value="1">Lunedì</option><option value="0">Domenica</option></select></label></div>
+          <div class="toggle-row"><div><strong>Alternanza weekend</strong><small>Rotazione sulle squadre</small></div><label class="switch"><input id="weekend-toggle" type="checkbox" checked><span></span></label></div>
+          <div class="toggle-row"><div><strong>Distribuzione variabile</strong><small>Ordine meno ripetitivo</small></div><label class="switch"><input id="random-toggle" type="checkbox" checked><span></span></label></div>
+          <button class="primary-button" id="generate-button"><span>Genera turnazione</span><span class="button-arrow">↗</span></button>
+        </aside>
+        <section class="results-panel">
+          <div class="results-header"><div><p class="eyebrow">CALENDARIO</p><h2 id="plan-title">Nessuna turnazione generata</h2></div><div class="results-actions"><span id="review-count" class="review-count">0 giorni</span><button class="secondary-button" id="reorder-button" disabled>↻ <span>Riordina</span></button><button class="secondary-button" id="download-button" disabled>↓ <span>Esporta</span></button></div></div>
+          <div class="stats-row" id="stats-row"><div class="stat"><span>Personale</span><strong>—</strong><small>in roster</small></div><div class="stat"><span>Sestine</span><strong>—</strong><small>create</small></div><div class="stat"><span>Giorni coperti</span><strong>—</strong><small>del periodo</small></div><div class="stat stat-accent"><span>Equilibrio</span><strong>—</strong><small>servizi I / E</small></div></div>
+          <div class="calendar-wrap" id="calendar-wrap"><div class="empty-state"><div class="empty-icon">✦</div><h3>Il calendario è vuoto</h3><p>Carica un roster per generare il piano.</p></div></div>
+          <div class="legend"><span><i class="legend-dot internal"></i>Interno</span><span><i class="legend-dot external"></i>Esterno</span><span><i class="legend-dot mixed"></i>Weekend</span></div>
+        </section>
+      </section>
+      <section class="roster-section"><div class="section-title"><div><p class="eyebrow">PERSONALE</p><h2>Roster caricato</h2></div><span class="roster-count" id="roster-count">0 persone</span></div><div class="table-wrap"><table><thead><tr><th>Nome</th><th>Squadra</th><th>Qualifica</th><th>Disponibilità</th></tr></thead><tbody id="roster-body"><tr><td colspan="4" class="table-empty">Nessun dato importato.</td></tr></tbody></table></div></section>
+    </main>
+    <footer><span>creato da ###</span><span>OSTAP / turnazioni operative</span></footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
